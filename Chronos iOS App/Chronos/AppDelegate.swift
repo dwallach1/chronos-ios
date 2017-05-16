@@ -27,18 +27,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     if UIApplication.shared.applicationState == .active {
-      window?.rootViewController?.showAlert(withTitle: nil, message: "Wally says \(status)")
+      window?.rootViewController?.showAlert(withTitle: nil, message: "Chronos says \(status)")
     } else {
       // Otherwise present a local notification
       let notification = UILocalNotification()
-      notification.alertBody = "Wally says \(status)"
+      notification.alertBody = "Chronos says \(status)"
       notification.soundName = "Default"
       UIApplication.shared.presentLocalNotificationNow(notification)
     }
     
-//    let url = "https://maker.ifttt.com/trigger/{event}/with/key/ckgPf3yQsCMF2GNMIHWoatjZmr3YRPnxkn4FkA_iN-d"
-//    let req = "PUT"
-  }
+    
+    
+    let dict = ["status": home] as [String: Any]
+    
+    if let jsonData = try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted) {
+        
+        let port = userPreferences.sharedInstance.current_port
+        let url = NSURL(string: port+"/Run")!
+        let request = NSMutableURLRequest(url: url as URL)
+        request.httpMethod = "POST"
+        print (port+"/Run")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data,response,error in
+            if error != nil{
+                print(error?.localizedDescription)
+                return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                
+                if let parseJSON = json {
+                    let resultValue:String = parseJSON["success"] as! String;
+                    print("result: \(resultValue)")
+                    print(parseJSON)
+                    }
+                } catch let error as NSError {
+                    print(error)
+                }
+            }
+            task.resume()
+        }
+    
+
+    }
   
   
 }

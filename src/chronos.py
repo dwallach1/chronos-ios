@@ -1,4 +1,5 @@
 from __future__ import print_function
+from flask import Flask 
 import httplib2
 import os
 
@@ -14,13 +15,22 @@ import subprocess
 
 from gtts import gTTS
 from pydub import AudioSegment
+import wave
+import random
 
 
 __author__ = "David Wallach"
 __license__ = "MIT"
 
+
+app = Flask(__name__)
+
 """
 Run this program whenever the user leaves or enters their home triggered by companion iOS application
+
+Start Flask at local port 5000 (default) by running this module
+Run "ngrok http 5000" to broadcast the local port 
+configure iOS app settings to use the ngrok port 
 """
 
 # -------------------
@@ -29,18 +39,19 @@ Run this program whenever the user leaves or enters their home triggered by comp
 #
 # --------------------
 
-def speak(file):
-    # increase_vol(file)
+def speak(fname):
+    # rewriteWav(fname)
+    # increase_vol(fname)
     os.system("afplay alexa_wake.wav")
-    os.system("afplay "+ file)
+    os.system("afplay "+ fname)
 
 
-def increase_vol(file):
-    speech = AudioSegment.from_wav(file)
+def increase_vol(fname):
+    os.system("afplay "+ fname)
+    speech = AudioSegment.from_wav(fname)
     speech = speech + 10 # add 10 db to boost volume 
-    speech.export(file, format="wav")
-
-
+    speech.export(fname, format="wav")
+    os.system("afplay "+ fname)
 
 def textToWav(fname, text, alarm_time=None):
     if alarm_time:
@@ -68,7 +79,7 @@ def save_as_wav(data, prefix):
     f.setnchannels(1)
     f.writeframes(data)
     f.close()
-    logger.info('Save audio as %s' % filename)
+    print ('Save audio as %s' % filename)
 
 
 def get_bytes_of_wav(fname):
@@ -105,6 +116,16 @@ def amplify(infile, outfile):
     transformed = rfft(input) 
     output = irfft(transformed) 
     write(outfile, rate, output) #- See more at: http://www.joinphp.com/content/nptnllqt-rfft-or-irfft-increasing-wav-file-volume-in-python.html#sthash.D0N2dKEH.dpuf
+
+
+def rewriteWav(fname):
+    b = get_bytes_of_wav(fname)
+    print (b)
+    b_str = ''.join(b)
+    print (b_str)
+    save_as_wav(b_str, fname[:len(fname)-4]) # take off thw .wav part
+    # save_as_wav(b_str, 'alexa_command_2')
+
 
 
 # -----------------------
@@ -145,12 +166,11 @@ def alarm_manager(time, delete=False):
         alarm_time =  unit_number[time.hour] + ' ' + big_number[time.minute / 10] + ' ' + unit_number[time.minute - ((time.minute/10)*10)] + ' ' + 'a m tomorrow'
     print ("setting alarm time to ", alarm_time)
     text = starter + alarm_time
-    tts = gTTS(text= text, lang='en')
-    tts.save("alexa_command.wav")
+    textToWav('alexa_command', text)
+    # tts = gTTS(text= text, lang='en')
+    # tts.save("alexa_command.wav")
     speak("alexa_command.wav")
     return alarm_time
-
-
 
 def is_after(time1, time2):
     """
@@ -174,8 +194,6 @@ def sub_time(time1, time2):
         datetime object of today() with the time of time1 - time2
     """
     return datetime.datetime.combine(datetime.date.today(), time1) - datetime.timedelta(hours=time2.hour, minutes=time2.minute)
-   
-
 
 def schedule_alarm(first_event, user_prefs):
     """
@@ -269,12 +287,11 @@ def get_user_prefs():
     prefs['prep_time'] =  datetime.time(1, 0, 0) #datetime.strptime('1:00', '%H:%M').time()
     return prefs
 
-
-
-
 def trigger_communication(events, arriving=False):
     # Condition: user is arriving home
     # Set alarm based on the user preferences
+    if not events:
+        return 
     first_event = events[0]['start'].get('dateTime', events[0]['start'].get('date'))
     user_prefs = get_user_prefs()
     time = schedule_alarm(first_event, user_prefs)  
@@ -288,7 +305,6 @@ def trigger_communication(events, arriving=False):
         # Condition: user is leaving home
         alarm_manager(time, delete=True)
         print ("alexa successfully deleted alarm at", time)
-
 
 def get_events():
     credentials = get_credentials()
@@ -313,29 +329,35 @@ def get_events():
     return events
 
 
-
-
+@app.route("/Run", methods=['POST'])
 def main():
+
     """
     Triggered when the user either enters or exitis home location.
 
     If the user enters: set the alarms for the next day based on Google Calendar events
     and user preferences  
     """
-   
+    
+    # arriving = request.args.get("status")
     # Step 1: get user's events for next day from Google Calendar API 
     events = get_events()
+
 
     # Step 2: configure wake audio file
     textToWav('alexa_wake', 'Hey Alexa,')
 
     # Step 3: generate voice message & communicate with Alexa 
-    trigger_communication(events)
-    # trigger_communication(events, arriving=True)
+    # trigger_communication(events)
+    trigger_communication(events, arriving=False)
 
-    # hello()
+    rand_name = str(random.random()) + str(random.random()) + str(random.random()) + str(random.random())
+    file = open(rand_name,”w”) 
+    file.write("worked arriving was " + str(arriving))
+    file.close()
     
 
 
 if __name__ == '__main__':
-    main()
+    app.run(debug=True)
+    # main()

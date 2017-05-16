@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		63D847871ECB9ED1002A01B8 /* ServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D847861ECB9ED1002A01B8 /* ServerViewController.swift */; };
 		63DCF7ED1ECA90BA00C2D798 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DCF7EC1ECA90BA00C2D798 /* AppDelegate.swift */; };
 		63DCF7F21ECA90BA00C2D798 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63DCF7F01ECA90BA00C2D798 /* Main.storyboard */; };
 		63DCF7F41ECA90BA00C2D798 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63DCF7F31ECA90BA00C2D798 /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		63D847861ECB9ED1002A01B8 /* ServerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerViewController.swift; sourceTree = "<group>"; };
 		63DCF7E91ECA90BA00C2D798 /* Chronos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chronos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63DCF7EC1ECA90BA00C2D798 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63DCF7F11ECA90BA00C2D798 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				63DCF8021ECA912B00C2D798 /* GeotificationsViewController.swift */,
 				63DCF7FE1ECA912B00C2D798 /* AddGeotificationViewController.swift */,
 				63DCF8191ECB704100C2D798 /* SetTimeViewController.swift */,
+				63D847861ECB9ED1002A01B8 /* ServerViewController.swift */,
 			);
 			name = VC;
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 				63DCF80E1ECA912B00C2D798 /* Utilities.swift in Sources */,
 				63DCF80B1ECA912B00C2D798 /* GeotificationsViewController.swift in Sources */,
 				63DCF80D1ECA912B00C2D798 /* LocationSearchTable.swift in Sources */,
+				63D847871ECB9ED1002A01B8 /* ServerViewController.swift in Sources */,
 				63DCF80A1ECA912B00C2D798 /* Geotification.swift in Sources */,
 				63DCF8071ECA912B00C2D798 /* AddGeotificationViewController.swift in Sources */,
 				63DCF7ED1ECA90BA00C2D798 /* AppDelegate.swift in Sources */,

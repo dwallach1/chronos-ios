@@ -12,7 +12,9 @@ class userPreferences {
     var prefered_preptime = "none"
     var min_preptime = "none"
     var max_wakeup_time = "none"
+    var current_port = "none"
 }
+
 
 
 // MARK: Helper Extensions

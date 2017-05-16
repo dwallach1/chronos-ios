@@ -49,6 +49,10 @@ class GeotificationsViewController: UIViewController {
     
     @IBAction func navButtonTouched(_ sender: Any) {
         mapView.zoomToUserLocation()
+        print ("http://3f11d43d.ngrok.io" + "/Run")
+        print (userPreferences.sharedInstance.current_port)
+        print (userPreferences.sharedInstance.current_port + "/Run")
+        
     }
     
     @IBAction func settingsButtonTouched(_ sender: Any) {
