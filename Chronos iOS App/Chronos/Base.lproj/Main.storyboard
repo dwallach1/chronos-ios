@@ -7,7 +7,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -127,7 +126,7 @@
             </objects>
             <point key="canvasLocation" x="645" y="505"/>
         </scene>
-        <!--Set Home Address-->
+        <!--Settings-->
         <scene sceneID="fiQ-Gi-mFr">
             <objects>
                 <tableViewController id="WOc-Kh-RdY" customClass="AddGeotificationViewController" customModule="Chronos" customModuleProvider="target" sceneMemberID="viewController">
@@ -136,11 +135,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="LSJ-CM-YCh">
-                            <rect key="frame" x="0.0" y="300" width="375" height="57"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </view>
                         <sections>
                             <tableViewSection id="59y-9K-kDZ">
                                 <cells>
@@ -152,23 +146,112 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AddPin" translatesAutoresizingMaskIntoConstraints="NO" id="WUy-YH-DKS">
-                                                    <rect key="frame" x="150" y="155.5" width="75" height="75"/>
+                                                    <rect key="frame" x="150" y="87" width="75" height="75"/>
                                                 </imageView>
                                                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="frU-qC-iGG">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="306"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="397" height="299.5"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="KFK-uw-HxV" id="H8K-Km-M1o"/>
                                                     </connections>
                                                 </mapView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="phk-vs-Cp2" userLabel="done">
+                                                    <rect key="frame" x="202.5" y="229.5" width="50" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="kVF-NO-GtG"/>
+                                                        <constraint firstAttribute="width" constant="50" id="mDg-jM-bzZ"/>
+                                                    </constraints>
+                                                    <state key="normal" image="done-icon"/>
+                                                    <connections>
+                                                        <action selector="onAddWithSender:" destination="WOc-Kh-RdY" eventType="touchUpInside" id="x9B-cl-3A7"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y3T-kS-gQY" userLabel="nav">
+                                                    <rect key="frame" x="132.5" y="229.5" width="50" height="50"/>
+                                                    <state key="normal" image="navigate-icon"/>
+                                                    <connections>
+                                                        <action selector="onZoomToCurrentLocationWithSender:" destination="WOc-Kh-RdY" eventType="touchUpInside" id="Bhn-Sf-mre"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="frU-qC-iGG" firstAttribute="centerX" secondItem="WUy-YH-DKS" secondAttribute="centerX" id="Nbw-Mp-kGs"/>
-                                                <constraint firstItem="frU-qC-iGG" firstAttribute="centerY" secondItem="WUy-YH-DKS" secondAttribute="centerY" constant="-40" id="QFB-Fm-Pu9"/>
-                                                <constraint firstAttribute="trailing" secondItem="frU-qC-iGG" secondAttribute="trailing" id="jdp-SF-r7q"/>
-                                                <constraint firstAttribute="bottom" secondItem="frU-qC-iGG" secondAttribute="bottom" constant="-6.5" id="tha-AC-t0d"/>
+                                                <constraint firstItem="Y3T-kS-gQY" firstAttribute="width" secondItem="phk-vs-Cp2" secondAttribute="width" id="2dM-hr-7O5"/>
+                                                <constraint firstItem="frU-qC-iGG" firstAttribute="centerX" secondItem="WUy-YH-DKS" secondAttribute="centerX" constant="11" id="Nbw-Mp-kGs"/>
+                                                <constraint firstItem="frU-qC-iGG" firstAttribute="centerY" secondItem="WUy-YH-DKS" secondAttribute="centerY" constant="25.5" id="QFB-Fm-Pu9"/>
+                                                <constraint firstItem="phk-vs-Cp2" firstAttribute="centerX" secondItem="G8a-9u-bod" secondAttribute="centerX" constant="40" id="Tfq-SO-JmG"/>
+                                                <constraint firstItem="Y3T-kS-gQY" firstAttribute="height" secondItem="phk-vs-Cp2" secondAttribute="height" id="dy8-GM-IMs"/>
+                                                <constraint firstAttribute="trailing" secondItem="frU-qC-iGG" secondAttribute="trailing" constant="-22" id="jdp-SF-r7q"/>
+                                                <constraint firstItem="phk-vs-Cp2" firstAttribute="leading" secondItem="Y3T-kS-gQY" secondAttribute="trailing" constant="20" id="ohI-ek-e0B"/>
+                                                <constraint firstAttribute="bottom" secondItem="Y3T-kS-gQY" secondAttribute="bottom" constant="20" id="rWn-2N-tFw"/>
+                                                <constraint firstAttribute="bottom" secondItem="frU-qC-iGG" secondAttribute="bottom" id="tha-AC-t0d"/>
                                                 <constraint firstAttribute="topMargin" secondItem="frU-qC-iGG" secondAttribute="top" constant="8" id="wCa-vM-WD1"/>
+                                                <constraint firstAttribute="bottom" secondItem="phk-vs-Cp2" secondAttribute="bottom" constant="20" id="wp9-br-78h"/>
                                                 <constraint firstItem="frU-qC-iGG" firstAttribute="leading" secondItem="G8a-9u-bod" secondAttribute="leading" id="zb0-6Z-etr"/>
                                             </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="Zv2-q9-SES" style="IBUITableViewCellStyleDefault" id="K6i-pG-h5s">
+                                        <rect key="frame" x="0.0" y="300" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="K6i-pG-h5s" id="cfg-nc-7dJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="left" text="Set or update home address with map above" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Zv2-q9-SES">
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Bfi-35-XeH">
+                                        <rect key="frame" x="0.0" y="344" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bfi-35-XeH" id="PbH-mR-of8">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="5Ps-9j-eWR">
+                                        <rect key="frame" x="0.0" y="388" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5Ps-9j-eWR" id="SIg-86-e7M">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="eVS-Q9-q5S">
+                                        <rect key="frame" x="0.0" y="432" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eVS-Q9-q5S" id="SgB-xu-0Tg">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="k8a-p8-McB">
+                                        <rect key="frame" x="0.0" y="476" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="k8a-p8-McB" id="kbY-VX-Rd1">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="IId-Hx-itM">
+                                        <rect key="frame" x="0.0" y="520" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IId-Hx-itM" id="Rs6-al-Hry">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="zrW-NK-8ZT">
+                                        <rect key="frame" x="0.0" y="564" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zrW-NK-8ZT" id="OzS-Hf-uMx">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -179,30 +262,15 @@
                             <outlet property="delegate" destination="WOc-Kh-RdY" id="ZvI-W3-HhK"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Set Home Address" id="cjD-eh-hQf">
+                    <navigationItem key="navigationItem" title="Settings" id="cjD-eh-hQf">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="xDC-Ux-qv5">
                             <connections>
                                 <action selector="onCancelWithSender:" destination="WOc-Kh-RdY" id="fR4-Ya-HVp"/>
                             </connections>
                         </barButtonItem>
-                        <rightBarButtonItems>
-                            <barButtonItem title="Set" id="Zqz-jV-nhQ">
-                                <connections>
-                                    <action selector="onAddWithSender:" destination="WOc-Kh-RdY" id="o75-ar-PF3"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem image="CurrentLocation" id="cLD-qt-jBr" userLabel="CurrentLocation">
-                                <connections>
-                                    <action selector="onZoomToCurrentLocationWithSender:" destination="WOc-Kh-RdY" id="vJ9-LT-9X0"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="addButton" destination="Zqz-jV-nhQ" id="ghk-If-qAk"/>
                         <outlet property="mapView" destination="frU-qC-iGG" id="DtX-ni-IE0"/>
-                        <outlet property="searchBarView" destination="LSJ-CM-YCh" id="fFA-av-W8K"/>
-                        <outlet property="zoomButton" destination="cLD-qt-jBr" id="E2Z-95-cgF"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3fN-jg-cX5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -256,8 +324,8 @@
     </scenes>
     <resources>
         <image name="AddPin" width="75" height="75"/>
-        <image name="CurrentLocation" width="15" height="15"/>
         <image name="Settings-icon" width="128" height="128"/>
+        <image name="done-icon" width="128" height="128"/>
         <image name="home-icon-2" width="128" height="128"/>
         <image name="navigate-icon" width="128" height="128"/>
     </resources>

@@ -14,31 +14,27 @@ protocol HandleMapSearch: class {
 
 class AddGeotificationViewController: UITableViewController {
 
-  @IBOutlet var addButton: UIBarButtonItem!
-  @IBOutlet var zoomButton: UIBarButtonItem!
   @IBOutlet weak var mapView: MKMapView!
 
-  @IBOutlet weak var searchBarView: UIView!
     
-    
-    
-  var DynamicView=UIView(frame: CGRect(100, 200, 100, 100))
-  DynamicView.backgroundColor=UIColor.green
-  DynamicView.layer.cornerRadius=25
-  DynamicView.layer.borderWidth=2
-  self.view.addSubview(DynamicView)
-  
-
-
   var delegate: AddGeotificationsViewControllerDelegate?
   var resultSearchController: UISearchController! = nil
   var selectedPin: MKPlacemark?
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    addButton.accessibilityElementsHidden = true
-    zoomButton.accessibilityElementsHidden = true
+//    addButton.accessibilityElementsHidden = true
+//    zoomButton.accessibilityElementsHidden = true
 //    navigationItem.rightBarButtonItems = [addButton, zoomButton]
+    
+    let screenSize: CGRect = UIScreen.main.bounds
+    let screenWidth = screenSize.width
+    let DynamicView = UIView()
+    DynamicView.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 50)
+//    DynamicView.backgroundColor=UIColor.green
+//    DynamicView.layer.cornerRadius=25
+//    DynamicView.layer.borderWidth=2
+    self.view.addSubview(DynamicView)
     
     let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
     resultSearchController = UISearchController(searchResultsController: locationSearchTable)
@@ -46,14 +42,14 @@ class AddGeotificationViewController: UITableViewController {
     let searchBar = resultSearchController!.searchBar
     searchBar.sizeToFit()
     searchBar.placeholder = "Search for home address"
-//    navigationItem.titleView = resultSearchController?.searchBar
-    searchBarView.addSubview((resultSearchController?.searchBar)!)
+//    searchBarView.addSubview((resultSearchController?.searchBar)!)
+    DynamicView.addSubview((resultSearchController?.searchBar)!)
     resultSearchController.hidesNavigationBarDuringPresentation = false
     resultSearchController.dimsBackgroundDuringPresentation = true
     definesPresentationContext = true
     locationSearchTable.mapView = mapView
     locationSearchTable.handleMapSearchDelegate = self
-
+    
   }
 
 

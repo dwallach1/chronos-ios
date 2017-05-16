@@ -77,6 +77,7 @@ class GeotificationsViewController: UIViewController {
   func setHome(geotification: Geotification) {
     if homeLocation != nil {
       stopMonitoring(geotification: homeLocation!)
+      mapView.removeOverlays(mapView.overlays)
     }
     homeLocation = geotification
     //remove current annotations
@@ -85,6 +86,7 @@ class GeotificationsViewController: UIViewController {
         self.mapView.removeAnnotation($0)
       }
     }
+    
     addRadiusOverlay(forGeotification: geotification)
     mapView.addAnnotation(geotification)
     print("home is now \(String(describing: homeLocation?.coordinate))")

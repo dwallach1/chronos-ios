@@ -68,9 +68,9 @@
 			isa = PBXGroup;
 			children = (
 				63DCF7EC1ECA90BA00C2D798 /* AppDelegate.swift */,
+				63DCF8021ECA912B00C2D798 /* GeotificationsViewController.swift */,
 				63DCF7FE1ECA912B00C2D798 /* AddGeotificationViewController.swift */,
 				63DCF8011ECA912B00C2D798 /* Geotification.swift */,
-				63DCF8021ECA912B00C2D798 /* GeotificationsViewController.swift */,
 				63DCF8031ECA912B00C2D798 /* Images.xcassets */,
 				63DCF7F01ECA90BA00C2D798 /* Main.storyboard */,
 				63DCF8121ECA956700C2D798 /* utilities */,
