@@ -1,34 +1,23 @@
-Chronos | Wally | Apollo | Sage
-An IoT System Making your Amazon Alexa Smarter
+# Chronos 
+
+This project is meant to be a proof-of-concept IoT based system. This project models an automated alarm system based on when the
+user enters and exits their home.
+
+# How It Works
+
+	1. The user downloads the iOS application that tracks their location and notifies the system when the user 
+	enters or exits thier home. The user is able to input their home address and update their sleeping preferences in order to let the system better determine their wake up time.
+
+	2. The system will be using ngrok to expose our local server (local host 5000) to the web to allow our iOS application to post location events to the system. 
+
+	3. The inner system will be running on Flask to execute a python module (chronos.py) to then check the user's Google calendar and see their events for the next day and set their alarm based on their schedule as well as user defined preferences. 
+
+	4. The python module generates two wav files: (1) a wake file to trigger Alexa to litsen and (2) a content file with command for Alexa. It then sends the audio of these files from the computer to the Echo. Here the Echo plays the files, firstly the wake file, which triggers the Echo to begin litsening. It then plays the second file (the command) which tells Alexa what to do.
 
 
-#Overview
-The components for the project consist of an iOS application, light sensor and the AWS backend. The purpose of the project is to determine when a user goes to sleep and trigger the AWS backend to use cloud logic to determine when the user's first event for the next day is and set an alarm accordingly. The system will adhere to a set of rules based on input regarding the users prefrences such as how long it takes them to get ready, latest time they want to wake up and more. 
+# Limitations
+
+Because Amazon does not support 3rd party applications accessing Echo's alarms, this project had to be implemeneted in a very hackish manner. I hope that soon Amazon allows its users more access to the core of the Echo's to make them more programmable. This project would be able to be run easily on a Raspberry Pi running Pylexa or something of that sort, however, I wanted to develop a project that utilzed the traditional Echo. 
 
 
-#Requirements
-
-	* Xcode 7 and later
-	* iOS 8 and later
-	* Amazon Alexa 
-	* Light Sensor
-
-#Work Flow
-The user downloads the iOS application and inputs their home address. The application tracks it and updates a variable stored in the cloud that siginifies if the user is home or not. Each change is communicated using the AWS IoT MQTT device shadow API and then logic is applied. 
-
-There are several cases:
-	* if the user comes home + the lights detect a change from on to off state + it is past the threshold of possible bedtimes then the system will check the user's calendar and set the alarm
-	* if the user comes home, but it is too early then the system waits until past the threshold time 
-
-
-#To do 
-We hope to store user's data in order to implement machine learning and have the system better adhere to each indiviudal user. Furthermore, we are looking into developing better protocol for determining when the user is in a sleep state. 
-
-
-# Developer Notes
-
-We need to trigger Alexa through voice, this seems to be the biggest hurdle for the proposed Chronos system. 
-
-	"Alexa sends your skill a JSON message with the user’s intent and your code answers with a JSON message that determines what Alexa will answer to the user."
-
-For this to work, we are going to use googles python library gTTS (google text to speach) wich will generate an mp3 file that we will send to Alexa to emulate the action of the user speaking to it. 
+# To Do
