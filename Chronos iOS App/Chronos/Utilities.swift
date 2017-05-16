@@ -2,6 +2,19 @@
 import UIKit
 import MapKit
 
+
+
+class userPreferences {
+    static let sharedInstance = userPreferences()
+    private init() {} //This prevents others from using the default '()' initializer for this class.
+    var state = "none"
+    var prefered_sleep_hrs = "none"
+    var prefered_preptime = "none"
+    var min_preptime = "none"
+    var max_wakeup_time = "none"
+}
+
+
 // MARK: Helper Extensions
 extension UIViewController {
   func showAlert(withTitle title: String?, message: String?) {

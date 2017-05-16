@@ -1,4 +1,12 @@
 
+//
+//  GeotificationsViewController.swift
+//  Chronos
+//
+//  Created by David Wallach on 5/16/17.
+//  Copyright © 2017 David Wallach. All rights reserved.
+//
+
 import UIKit
 import MapKit
 import CoreLocation

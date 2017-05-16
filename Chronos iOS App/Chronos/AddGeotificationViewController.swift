@@ -1,4 +1,12 @@
 
+//
+//  AddGeotificationViewController.swift
+//  Chronos
+//
+//  Created by David Wallach on 5/16/17.
+//  Copyright © 2017 David Wallach. All rights reserved.
+//
+
 
 import UIKit
 import MapKit
@@ -20,29 +28,30 @@ class AddGeotificationViewController: UITableViewController {
   var delegate: AddGeotificationsViewControllerDelegate?
   var resultSearchController: UISearchController! = nil
   var selectedPin: MKPlacemark?
+    
+  // self.datePicker.datePickerMode = .Time
 
   override func viewDidLoad() {
     super.viewDidLoad()
-//    addButton.accessibilityElementsHidden = true
-//    zoomButton.accessibilityElementsHidden = true
-//    navigationItem.rightBarButtonItems = [addButton, zoomButton]
     
     let screenSize: CGRect = UIScreen.main.bounds
     let screenWidth = screenSize.width
     let DynamicView = UIView()
     DynamicView.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 50)
-//    DynamicView.backgroundColor=UIColor.green
-//    DynamicView.layer.cornerRadius=25
-//    DynamicView.layer.borderWidth=2
     self.view.addSubview(DynamicView)
     
     let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
     resultSearchController = UISearchController(searchResultsController: locationSearchTable)
     resultSearchController.searchResultsUpdater = locationSearchTable
     let searchBar = resultSearchController!.searchBar
+//    searchBar.layer.borderColor = UIColor.blue.cgColor
+    searchBar.barTintColor = UIColor.white
+//    searchBar.barStyle = UIBarStyle.blackTranslucent
+//    searchBar.layer.cornerRadius = 3.0
+//    searchBar.clipsToBounds = true as! Bool
+//    searchBar.layer.borderWidth = 1
     searchBar.sizeToFit()
     searchBar.placeholder = "Search for home address"
-//    searchBarView.addSubview((resultSearchController?.searchBar)!)
     DynamicView.addSubview((resultSearchController?.searchBar)!)
     resultSearchController.hidesNavigationBarDuringPresentation = false
     resultSearchController.dimsBackgroundDuringPresentation = true
@@ -68,6 +77,26 @@ class AddGeotificationViewController: UITableViewController {
   @IBAction private func onZoomToCurrentLocation(sender: AnyObject) {
     mapView.zoomToUserLocation()
   }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        switch segue.identifier! {
+        case "prefered_sleep_hrs":
+            userPreferences.sharedInstance.state = "prefered_sleep_hrs"
+            break
+        case "max_wakeup_time":
+            userPreferences.sharedInstance.state = "max_wakeup_time"
+            break
+        case "prefered_preptime":
+            userPreferences.sharedInstance.state =  "prefered_preptime"
+            break
+        case "min_prep_time":
+            userPreferences.sharedInstance.state = "min_prep_time"
+            break
+        default:
+            return
+        }
+    }
 }
 
 extension AddGeotificationViewController: HandleMapSearch {

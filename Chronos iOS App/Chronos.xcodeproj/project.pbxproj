@@ -18,6 +18,7 @@
 		63DCF80D1ECA912B00C2D798 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DCF8041ECA912B00C2D798 /* LocationSearchTable.swift */; };
 		63DCF80E1ECA912B00C2D798 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DCF8051ECA912B00C2D798 /* Utilities.swift */; };
 		63DCF8111ECA919A00C2D798 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63DCF80F1ECA919A00C2D798 /* LaunchScreen.xib */; };
+		63DCF81A1ECB704100C2D798 /* SetTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DCF8191ECB704100C2D798 /* SetTimeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		63DCF8051ECA912B00C2D798 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		63DCF8061ECA912B00C2D798 /* Wally-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Wally-Bridging-Header.h"; sourceTree = "<group>"; };
 		63DCF8101ECA919A00C2D798 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		63DCF8191ECB704100C2D798 /* SetTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetTimeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +54,6 @@
 			isa = PBXGroup;
 			children = (
 				63DCF7EB1ECA90BA00C2D798 /* Chronos */,
-				63DCF7EA1ECA90BA00C2D798 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,18 +63,19 @@
 				63DCF7E91ECA90BA00C2D798 /* Chronos.app */,
 			);
 			name = Products;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		63DCF7EB1ECA90BA00C2D798 /* Chronos */ = {
 			isa = PBXGroup;
 			children = (
 				63DCF7EC1ECA90BA00C2D798 /* AppDelegate.swift */,
-				63DCF8021ECA912B00C2D798 /* GeotificationsViewController.swift */,
-				63DCF7FE1ECA912B00C2D798 /* AddGeotificationViewController.swift */,
+				63DCF81B1ECB704900C2D798 /* VC */,
 				63DCF8011ECA912B00C2D798 /* Geotification.swift */,
 				63DCF8031ECA912B00C2D798 /* Images.xcassets */,
 				63DCF7F01ECA90BA00C2D798 /* Main.storyboard */,
 				63DCF8121ECA956700C2D798 /* utilities */,
+				63DCF7EA1ECA90BA00C2D798 /* Products */,
 				63DCF8001ECA912B00C2D798 /* Base.lproj */,
 				63DCF7F31ECA90BA00C2D798 /* Assets.xcassets */,
 				63DCF7F81ECA90BA00C2D798 /* Info.plist */,
@@ -90,6 +92,16 @@
 				63DCF80F1ECA919A00C2D798 /* LaunchScreen.xib */,
 			);
 			name = utilities;
+			sourceTree = "<group>";
+		};
+		63DCF81B1ECB704900C2D798 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				63DCF8021ECA912B00C2D798 /* GeotificationsViewController.swift */,
+				63DCF7FE1ECA912B00C2D798 /* AddGeotificationViewController.swift */,
+				63DCF8191ECB704100C2D798 /* SetTimeViewController.swift */,
+			);
+			name = VC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,6 +185,7 @@
 				63DCF80A1ECA912B00C2D798 /* Geotification.swift in Sources */,
 				63DCF8071ECA912B00C2D798 /* AddGeotificationViewController.swift in Sources */,
 				63DCF7ED1ECA90BA00C2D798 /* AppDelegate.swift in Sources */,
+				63DCF81A1ECB704100C2D798 /* SetTimeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
