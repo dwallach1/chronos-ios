@@ -22,7 +22,8 @@ class GeotificationsViewController: UIViewController {
   @IBOutlet weak var navigateButton: UIButton!
   @IBOutlet weak var homeButton: UIButton!
   @IBOutlet weak var settingsButton: UIButton!
-  
+  @IBOutlet weak var server_label: UILabel!
+    
   var homeLocation: Geotification? = nil
   var locationManager = CLLocationManager()
   
@@ -33,9 +34,12 @@ class GeotificationsViewController: UIViewController {
     locationManager.desiredAccuracy = kCLLocationAccuracyBest
     loadHomeLocation()
     mapView.zoomToUserLocation()
+    server_label.text = userPreferences.sharedInstance.current_port
+    
   }
     override func viewDidAppear(_ animated: Bool) {
-         mapView.zoomToUserLocation()
+        mapView.zoomToUserLocation()
+        server_label.text = userPreferences.sharedInstance.current_port
     }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -46,12 +50,25 @@ class GeotificationsViewController: UIViewController {
     }
   }
   
+    @IBAction func TestConnection(_ sender: Any) {
+        let port = userPreferences.sharedInstance.current_port
+        var x = -1;
+        let home = true
+        if home {  x = 1 }
+        else { x = 0 }
+        
+        var request = URLRequest(url: URL(string: port+"/Run?status=\(x)")!)
+        request.httpMethod = "GET"
+        let session = URLSession.shared
+        
+        session.dataTask(with: request) {data, response, err in
+            print("Entered the completionHandler")
+            }.resume()
+
+    }
     
     @IBAction func navButtonTouched(_ sender: Any) {
         mapView.zoomToUserLocation()
-        print ("http://3f11d43d.ngrok.io" + "/Run")
-        print (userPreferences.sharedInstance.current_port)
-        print (userPreferences.sharedInstance.current_port + "/Run")
         
     }
     

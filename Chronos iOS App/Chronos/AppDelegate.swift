@@ -36,42 +36,56 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       UIApplication.shared.presentLocalNotificationNow(notification)
     }
     
-    
-    
-    let dict = ["status": home] as [String: Any]
-    
-    if let jsonData = try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted) {
-        
-        let port = userPreferences.sharedInstance.current_port
-        let url = NSURL(string: port+"/Run")!
-        let request = NSMutableURLRequest(url: url as URL)
-        request.httpMethod = "POST"
-        print (port+"/Run")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = jsonData
-        
-        let task = URLSession.shared.dataTask(with: request as URLRequest){ data,response,error in
-            if error != nil{
-                print(error?.localizedDescription)
-                return
-            }
-            
-            do {
-                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-                
-                if let parseJSON = json {
-                    let resultValue:String = parseJSON["success"] as! String;
-                    print("result: \(resultValue)")
-                    print(parseJSON)
-                    }
-                } catch let error as NSError {
-                    print(error)
-                }
-            }
-            task.resume()
-        }
-    
+    let port = userPreferences.sharedInstance.current_port
+    var x = -1;
+    if home {  x = 1 }
+    else { x = 0 }
 
+    var request = URLRequest(url: URL(string: port+"/Run?status=\(x)")!)
+    request.httpMethod = "GET"
+    let session = URLSession.shared
+    
+    session.dataTask(with: request) {data, response, err in
+        print("Entered the completionHandler")
+        }.resume()
+    
+//    let dict = ["status": home] as [String: Any]
+//    
+//    if let jsonData = try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted) {
+//        
+//        let port = userPreferences.sharedInstance.current_port
+//        var x = -1;
+//        if home {  x = 1 }
+//        else { x = 0 }
+//        let url = NSURL(string: port+"/Run?status=\(x)")!
+//        let request = NSMutableURLRequest(url: url as URL)
+//        request.httpMethod = "GET"
+//        print (port+"/Run")
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//        request.httpBody = jsonData
+//        
+//        let task = URLSession.shared.dataTask(with: request as URLRequest){ data,response,error in
+//            if error != nil{
+//                print(error?.localizedDescription)
+//                return
+//            }
+//            
+//            do {
+//                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+//                
+//                if let parseJSON = json {
+//                    let resultValue:String = parseJSON["success"] as! String;
+//                    print("result: \(resultValue)")
+//                    print(parseJSON)
+//                    }
+//                } catch let error as NSError {
+//                    print(error)
+//                }
+//            }
+//            task.resume()
+//        }
+//    
+//
     }
   
   

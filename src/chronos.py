@@ -1,5 +1,5 @@
 from __future__ import print_function
-from flask import Flask 
+from flask import Flask, request
 import httplib2
 import os
 
@@ -166,9 +166,9 @@ def alarm_manager(time, delete=False):
         alarm_time =  unit_number[time.hour] + ' ' + big_number[time.minute / 10] + ' ' + unit_number[time.minute - ((time.minute/10)*10)] + ' ' + 'a m tomorrow'
     print ("setting alarm time to ", alarm_time)
     text = starter + alarm_time
-    textToWav('alexa_command', text)
-    # tts = gTTS(text= text, lang='en')
-    # tts.save("alexa_command.wav")
+    # textToWav('alexa_command', text)
+    tts = gTTS(text= text, lang='en')
+    tts.save("alexa_command.wav")
     speak("alexa_command.wav")
     return alarm_time
 
@@ -329,7 +329,7 @@ def get_events():
     return events
 
 
-@app.route("/Run", methods=['POST'])
+@app.route("/Run", methods=['GET'])
 def main():
 
     """
@@ -338,23 +338,28 @@ def main():
     If the user enters: set the alarms for the next day based on Google Calendar events
     and user preferences  
     """
-    
-    # arriving = request.args.get("status")
+    # arriving = request.json()
+    arriving = request.args.get("status")
     # Step 1: get user's events for next day from Google Calendar API 
     events = get_events()
 
 
     # Step 2: configure wake audio file
-    textToWav('alexa_wake', 'Hey Alexa,')
+    # textToWav('alexa_wake', 'Hey Alexa,')
+    tts = gTTS(text= 'Hey Alexa', lang='en')
+    tts.save("alexa_wake.wav")
+
 
     # Step 3: generate voice message & communicate with Alexa 
     # trigger_communication(events)
-    trigger_communication(events, arriving=False)
+    trigger_communication(events, arriving=arriving)
 
-    rand_name = str(random.random()) + str(random.random()) + str(random.random()) + str(random.random())
-    file = open(rand_name,”w”) 
+    rand_name = "validation_" + str(random.random()) + str(random.random()) + str(random.random()) + str(random.random())
+    file = open(rand_name,'w') 
     file.write("worked arriving was " + str(arriving))
     file.close()
+
+    return arriving
     
 
 

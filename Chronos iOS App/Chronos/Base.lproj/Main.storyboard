@@ -170,18 +170,39 @@
                                     <segue destination="ZZp-IQ-pCO" kind="presentation" id="vfM-jz-Yoq"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bUB-mf-qTT">
+                                <rect key="frame" x="75" y="89" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Z2-CJ-noi">
+                                <rect key="frame" x="20" y="174" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="hFq-4R-Hpk"/>
+                                    <constraint firstAttribute="width" constant="40" id="x3Y-OL-Dqk"/>
+                                </constraints>
+                                <state key="normal" image="test-icon"/>
+                                <connections>
+                                    <action selector="TestConnection:" destination="LYI-dq-R4y" eventType="touchUpInside" id="ULh-WB-Z60"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="58o-Wz-fWB" firstAttribute="leading" secondItem="XJf-xT-2wy" secondAttribute="trailing" constant="60" id="0QN-tq-JO1"/>
+                            <constraint firstItem="bUB-mf-qTT" firstAttribute="leading" secondItem="LNf-d1-Oxu" secondAttribute="trailing" constant="15" id="3z6-WW-AdY"/>
                             <constraint firstItem="XJf-xT-2wy" firstAttribute="leading" secondItem="E5h-DD-1qL" secondAttribute="trailing" constant="57" id="9AL-XO-N9I"/>
+                            <constraint firstItem="6Z2-CJ-noi" firstAttribute="leading" secondItem="YSL-HX-BG1" secondAttribute="leading" constant="20" id="9Qj-te-Vx1"/>
                             <constraint firstItem="hBM-ll-xSu" firstAttribute="top" secondItem="fP9-ox-VWa" secondAttribute="bottom" id="EVa-x5-hqb"/>
                             <constraint firstItem="fP9-ox-VWa" firstAttribute="leading" secondItem="YSL-HX-BG1" secondAttribute="leading" id="QqS-4b-UaV"/>
                             <constraint firstItem="hBM-ll-xSu" firstAttribute="top" secondItem="XJf-xT-2wy" secondAttribute="bottom" constant="30" id="Wtx-yK-zMo"/>
                             <constraint firstItem="hBM-ll-xSu" firstAttribute="top" secondItem="E5h-DD-1qL" secondAttribute="bottom" constant="30" id="XB4-xs-Ibb"/>
+                            <constraint firstItem="bUB-mf-qTT" firstAttribute="top" secondItem="kGy-dK-Sza" secondAttribute="bottom" constant="25" id="ZFr-Ed-SaT"/>
                             <constraint firstItem="LNf-d1-Oxu" firstAttribute="leading" secondItem="YSL-HX-BG1" secondAttribute="leading" constant="20" id="fgV-8d-tc9"/>
                             <constraint firstItem="LNf-d1-Oxu" firstAttribute="top" secondItem="kGy-dK-Sza" secondAttribute="bottom" constant="20" id="j04-aL-1zq"/>
                             <constraint firstItem="hBM-ll-xSu" firstAttribute="top" secondItem="58o-Wz-fWB" secondAttribute="bottom" constant="30" id="pm7-yv-cSb"/>
+                            <constraint firstItem="6Z2-CJ-noi" firstAttribute="top" secondItem="LNf-d1-Oxu" secondAttribute="bottom" constant="50" id="qoK-t8-0rI"/>
                             <constraint firstItem="fP9-ox-VWa" firstAttribute="top" secondItem="kGy-dK-Sza" secondAttribute="bottom" id="uMi-e7-lUK"/>
                             <constraint firstItem="XJf-xT-2wy" firstAttribute="centerX" secondItem="fP9-ox-VWa" secondAttribute="centerX" id="uQ8-9S-OBu"/>
                             <constraint firstAttribute="trailing" secondItem="fP9-ox-VWa" secondAttribute="trailing" id="wXm-Xs-UMV"/>
@@ -192,6 +213,7 @@
                         <outlet property="homeButton" destination="XJf-xT-2wy" id="M7h-kP-zPZ"/>
                         <outlet property="mapView" destination="fP9-ox-VWa" id="Be5-Fa-6so"/>
                         <outlet property="navigateButton" destination="E5h-DD-1qL" id="ePw-3H-5of"/>
+                        <outlet property="server_label" destination="bUB-mf-qTT" id="mNS-kp-SGk"/>
                         <outlet property="settingsButton" destination="58o-Wz-fWB" id="fNw-Aa-mtt"/>
                     </connections>
                 </viewController>
@@ -559,6 +581,7 @@
         <image name="navigate-icon" width="128" height="128"/>
         <image name="router-icon" width="128" height="128"/>
         <image name="save-icon" width="128" height="128"/>
+        <image name="test-icon" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="rCc-yX-bGv"/>
