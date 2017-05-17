@@ -311,8 +311,8 @@ def main():
         status = True
     elif int(s) == 3:
         print ("iOS synchronization test Successful")
-        status = False
-        # return s
+        # status = False
+        return s
     else:
         print ("Unkown GET Request")
         return -1

@@ -29,6 +29,13 @@ class AddGeotificationViewController: UITableViewController {
   var resultSearchController: UISearchController! = nil
   var selectedPin: MKPlacemark?
     
+    // images
+    @IBOutlet weak var pref_sleep_hrs_img: UIImageView!
+    @IBOutlet weak var max_wakeup_img: UIImageView!
+    @IBOutlet weak var min_prep_img: UIImageView!
+    @IBOutlet weak var pref_prep_img: UIImageView!
+    
+    
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -51,10 +58,27 @@ class AddGeotificationViewController: UITableViewController {
     definesPresentationContext = true
     locationSearchTable.mapView = mapView
     locationSearchTable.handleMapSearchDelegate = self
-    
+    setImgs()
   }
+    override func viewDidAppear(_ animated: Bool) {
+        setImgs()
+    }
 
-
+    func setImgs() {
+        if userPreferences.sharedInstance.prefered_sleep_hrs != "none" {
+            pref_sleep_hrs_img.image = #imageLiteral(resourceName: "check-1-icon")
+        } else { pref_sleep_hrs_img.image = #imageLiteral(resourceName: "x-icon@x1") }
+        if userPreferences.sharedInstance.max_wakeup_time != "none" {
+            max_wakeup_img.image = #imageLiteral(resourceName: "check-1-icon")
+        } else { max_wakeup_img.image = #imageLiteral(resourceName: "x-icon@x1") }
+        if userPreferences.sharedInstance.min_preptime != "none" {
+            min_prep_img.image = #imageLiteral(resourceName: "check-1-icon")
+        } else { min_prep_img.image = #imageLiteral(resourceName: "x-icon@x1") }
+        if userPreferences.sharedInstance.prefered_preptime != "none" {
+            pref_prep_img.image = #imageLiteral(resourceName: "check-1-icon")
+        } else { pref_prep_img.image = #imageLiteral(resourceName: "x-icon@x1") }
+    }
+    
   @IBAction func onCancel(sender: AnyObject) {
     dismiss(animated: true, completion: nil)
   }
