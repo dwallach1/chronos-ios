@@ -52,11 +52,7 @@ class GeotificationsViewController: UIViewController {
   
     @IBAction func TestConnection(_ sender: Any) {
         let port = userPreferences.sharedInstance.current_port
-        var x = -1;
-        let home = true
-        if home {  x = 1 }
-        else { x = 0 }
-        
+        let x = 3
         var request = URLRequest(url: URL(string: port+"/Run?status=\(x)")!)
         request.httpMethod = "GET"
         let session = URLSession.shared

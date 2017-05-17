@@ -259,6 +259,9 @@
                                         <constraint firstAttribute="height" constant="50" id="dvD-5P-kaa"/>
                                     </constraints>
                                     <state key="normal" image="save-icon"/>
+                                    <connections>
+                                        <action selector="UploadToCloud:" destination="WOc-Kh-RdY" eventType="touchUpInside" id="YqZ-Al-kkK"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

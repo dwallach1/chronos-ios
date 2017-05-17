@@ -29,8 +29,6 @@ class AddGeotificationViewController: UITableViewController {
   var resultSearchController: UISearchController! = nil
   var selectedPin: MKPlacemark?
     
-  // self.datePicker.datePickerMode = .Time
-
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -44,12 +42,7 @@ class AddGeotificationViewController: UITableViewController {
     resultSearchController = UISearchController(searchResultsController: locationSearchTable)
     resultSearchController.searchResultsUpdater = locationSearchTable
     let searchBar = resultSearchController!.searchBar
-//    searchBar.layer.borderColor = UIColor.blue.cgColor
     searchBar.barTintColor = UIColor.white
-//    searchBar.barStyle = UIBarStyle.blackTranslucent
-//    searchBar.layer.cornerRadius = 3.0
-//    searchBar.clipsToBounds = true as! Bool
-//    searchBar.layer.borderWidth = 1
     searchBar.sizeToFit()
     searchBar.placeholder = "Search for home address"
     DynamicView.addSubview((resultSearchController?.searchBar)!)
@@ -73,13 +66,72 @@ class AddGeotificationViewController: UITableViewController {
     let note = "Home"
     delegate?.addGeotificationViewController(controller: self, didAddCoordinate: coordinate, radius: radius, identifier: identifier, note: note)
   }
+ 
+  @IBAction func UploadToCloud(_ sender: Any) {
+        let dict = ["prefered_sleep_hrs": userPreferences.sharedInstance.prefered_sleep_hrs,
+                    "prefered_preptime": userPreferences.sharedInstance.prefered_preptime,
+                    "min_preptime": userPreferences.sharedInstance.min_preptime,
+                    "max_wakeup_time": userPreferences.sharedInstance.max_wakeup_time
+                    ] as [String: Any]
+    
+//        if let jsonData = try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted) {
+    
+            let port = userPreferences.sharedInstance.current_port
+//            let url = NSURL(string: port+"/Prefs")!
+//            let request = NSMutableURLRequest(url: url as URL)
+            var request = URLRequest(url: URL(string: port + "/Prefs/")!)
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            request.httpBody =  try! JSONSerialization.data(withJSONObject: dict, options: [])
+            
+            URLSession.shared.dataTask(with:request, completionHandler: {(data, response, error) in
+                if error != nil {
+                    print(error)
+                } else {
+                    do {
+                        guard let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any] else { return }
+                        
+                        guard let errors = json?["errors"] as? [[String: Any]] else { return }
+                        if errors.count > 0 {
+                            // show error
+                            return
+                        } else {
+                            // show confirmation
+                        }
+                    }
+                }
+            }).resume()
+    
+//            let task = URLSession.shared.dataTask(with: request as URLRequest){ data,response,error in
+//                if error != nil{
+//                    print(error?.localizedDescription)
+//                    return
+//                }
+//    
+//                do {
+//                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+//    
+//                    if let parseJSON = json {
+//                        let resultValue:String = parseJSON["success"] as! String;
+//                        print("result: \(resultValue)")
+//                        print(parseJSON)
+//                        }
+//                    } catch let error as NSError {
+//                        print(error)
+//                    }
+//                }
+//                task.resume()
+//            }
+         dismiss(animated: true, completion: nil)
+    }
 
-  @IBAction private func onZoomToCurrentLocation(sender: AnyObject) {
+  private func onZoomToCurrentLocation(sender: AnyObject) {
     mapView.zoomToUserLocation()
   }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
         switch segue.identifier! {
         case "prefered_sleep_hrs":
             userPreferences.sharedInstance.state = "prefered_sleep_hrs"

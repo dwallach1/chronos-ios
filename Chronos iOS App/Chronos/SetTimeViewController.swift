@@ -46,25 +46,6 @@ class SetTimeViewController: UITableViewController {
         dismiss(animated: true, completion: nil)
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        
-//        switch segue.identifier! {
-//        case "prefered_sleep_hrs":
-//            userPreferences.sharedInstance.state = "prefered_sleep_hrs"
-//            break
-//        case "max_wakeup_time":
-//            userPreferences.sharedInstance.state = "max_wakeup_time"
-//            break
-//        case "prefered_preptime":
-//            userPreferences.sharedInstance.state =  "prefered_preptime"
-//            break
-//        case "min_prep_time":
-//            userPreferences.sharedInstance.state = "min_prep_time"
-//            break
-//        default:
-//            return
-//        }
-//    }
     
     func time2string(time: Date) -> String {
         let dateformatter = DateFormatter()

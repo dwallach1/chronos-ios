@@ -1,12 +1,19 @@
-from __future__ import print_function
-from flask import Flask, request
+"""
+
+Run this program whenever the user leaves or enters their home triggered by companion iOS application
+Start Flask at local port 5000 (default) by running this module
+Run "ngrok http 5000" to broadcast the local port 
+configure iOS app settings to use the ngrok port 
+"""
+__author__ = "David Wallach"
+__license__ = "MIT"
+
+
+from flask import Flask, request, jsonify
 import httplib2
 import os
 
-from apiclient import discovery
-from oauth2client import client
-from oauth2client import tools
-from oauth2client.file import Storage
+from chronos_calendar import get_events
 
 import datetime
 from dateutil import parser
@@ -16,22 +23,15 @@ import subprocess
 from gtts import gTTS
 from pydub import AudioSegment
 import wave
+
 import random
-
-
-__author__ = "David Wallach"
-__license__ = "MIT"
+import json
 
 
 app = Flask(__name__)
 
-"""
-Run this program whenever the user leaves or enters their home triggered by companion iOS application
 
-Start Flask at local port 5000 (default) by running this module
-Run "ngrok http 5000" to broadcast the local port 
-configure iOS app settings to use the ngrok port 
-"""
+
 
 # -------------------
 #
@@ -133,6 +133,13 @@ def rewriteWav(fname):
 #   Alarm manager 
 #   
 # -----------------------
+# class ChronosManager:
+#     def __init__(self, preferences, alarm_time, home):
+#         self.preferences = preferences
+#         self.alarm_time = alarm_time
+
+
+
 
 
 def alarm_manager(time, delete=False):
@@ -203,8 +210,8 @@ def schedule_alarm(first_event, user_prefs):
         two variables: bool, val |=> true if successful and the time, otherwise false and None
     """
     first_event = parser.parse(first_event) # convert to datetime for comparisons
-    prep_time = user_prefs['prep_time']
-    latest_time = user_prefs['latest_time']
+    prep_time = user_prefs['prefered_preptime']
+    latest_time = user_prefs['max_wakeup_time']
 
     # Case 1: first event minus prep time is past latest_time --> wake up latest_time 
     event_minus_prep_time = sub_time(first_event.time(), prep_time)
@@ -221,55 +228,10 @@ def schedule_alarm(first_event, user_prefs):
 
     return None # if we get here, something went wrong
 
-# ---------------------
-#
-# GOOGLE CALENDAR API
-#
-# ----------------------
-
-try:
-    import argparse
-    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-except ImportError:
-    flags = None
-
-# If modifying these scopes, delete your previously saved credentials
-# at ~/.credentials/calendar-python-quickstart.json
-SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
-CLIENT_SECRET_FILE = 'client_secret.json'
-APPLICATION_NAME = 'Wally'
 
 
-def get_credentials():
-    """
-    Gets valid user credentials from storage.
-
-    If nothing has been stored, or if the stored credentials are invalid,
-    the OAuth2 flow is completed to obtain the new credentials.
-
-    Returns:
-        Credentials, the obtained credential.
-    """
-    home_dir = os.path.expanduser('~')
-    credential_dir = os.path.join(home_dir, '.credentials')
-    if not os.path.exists(credential_dir):
-        os.makedirs(credential_dir)
-    credential_path = os.path.join(credential_dir,
-                                   'calendar-python-quickstart.json')
-
-    store = Storage(credential_path)
-    credentials = store.get()
-    if not credentials or credentials.invalid:
-        flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
-        flow.user_agent = APPLICATION_NAME
-        if flags:
-            credentials = tools.run_flow(flow, store, flags)
-        else: # Needed only for compatibility with Python 2.6
-            credentials = tools.run(flow, store)
-        print('Storing credentials to ' + credential_path)
-    return credentials
-
-def get_user_prefs():
+@app.route("/Prefs/", methods=['POST'])
+def set_user_prefs():
     """
     Gets users preferences from AWS database  
     
@@ -279,13 +241,34 @@ def get_user_prefs():
     # Make call to API
     # get JSON object
 
-    ## For now, use hardcoded 
+    keys = ['prefered_sleep_hrs', 'prefered_preptime', 'min_preptime', 'max_wakeup_time']
+    defaults = True
     prefs = dict()
-    prefs['latest_time'] =  datetime.time(10, 0, 0)#datetime.strptime('10:00', '%H:%M').time()
-    prefs['max_time_hr'] = 9
-    prefs['max_time_min'] = 30
-    prefs['prep_time'] =  datetime.time(1, 0, 0) #datetime.strptime('1:00', '%H:%M').time()
-    return prefs
+    try:
+        prefs = request.json
+        print(prefs)
+        for k in keys:
+            prefs[k] = datetime.datetime.strptime(json[k], '%H:%M %p').time()
+        print ('prefs are ',prefs)
+        defaults = False
+    except:
+        pass
+
+    # Use defaults
+    if defaults:
+        print ('using default preferences')
+        prefs['max_wakeup_time'] =  datetime.datetime.strptime("10:00 AM" , '%H:%M %p').time()
+        prefs['prefered_sleep_hrs'] =  datetime.datetime.strptime("09:00 AM" , '%H:%M %p').time()
+        prefs['prefered_preptime'] = datetime.datetime.strptime("01:00 AM" , '%H:%M %p').time()
+        prefs['min_preptime'] = datetime.datetime.strptime("00:30 AM" , '%H:%M %p').time()
+
+    PREFERENCES = prefs
+    return "Updated user preferrences: Success!"
+
+# def convert_prefs(pref_dict):
+#     for key in pref_dict.keys():
+#         pref_dict[key] = datetime.datetime.strptime(json[k], '%H:%M %p').time()
+
 
 def trigger_communication(events, arriving=False):
     # Condition: user is arriving home
@@ -293,7 +276,9 @@ def trigger_communication(events, arriving=False):
     if not events:
         return 
     first_event = events[0]['start'].get('dateTime', events[0]['start'].get('date'))
-    user_prefs = get_user_prefs()
+    set_user_prefs()
+    # convert_prefs(user_prefs)
+    user_prefs = PREFERENCES
     time = schedule_alarm(first_event, user_prefs)  
     if not time:
         print ('Error setting time -- aborting mission')
@@ -306,28 +291,8 @@ def trigger_communication(events, arriving=False):
         alarm_manager(time, delete=True)
         print ("alexa successfully deleted alarm at", time)
 
-def get_events():
-    credentials = get_credentials()
-    http = credentials.authorize(httplib2.Http())
-    service = discovery.build('calendar', 'v3', http=http)
 
-    now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
-    print('Getting the upcoming 10 events')
-    eventsResult = service.events().list(
-        calendarId='primary', timeMin=now, maxResults=10, singleEvents=True,
-        orderBy='startTime').execute()
-    events = eventsResult.get('items', [])
-
-    if not events:
-        print('No upcoming events found.')
-        return 
-    for event in events:
-        # times are based on the 24 hour clock cycle
-        start = event['start'].get('dateTime', event['start'].get('date'))
-        print(start, event['summary'])
-
-    return events
-
+PREFERENCES = None 
 
 @app.route("/Run", methods=['GET'])
 def main():
@@ -338,8 +303,21 @@ def main():
     If the user enters: set the alarms for the next day based on Google Calendar events
     and user preferences  
     """
-    # arriving = request.json()
-    arriving = request.args.get("status")
+    s = request.args.get("status")        
+
+    if int(s) == 0:
+        status = False
+    elif int(s) == 1:
+        status = True
+    elif int(s) == 3:
+        print ("iOS synchronization test Successful")
+        status = False
+        # return s
+    else:
+        print ("Unkown GET Request")
+        return -1
+
+
     # Step 1: get user's events for next day from Google Calendar API 
     events = get_events()
 
@@ -352,16 +330,15 @@ def main():
 
     # Step 3: generate voice message & communicate with Alexa 
     # trigger_communication(events)
-    trigger_communication(events, arriving=arriving)
+    trigger_communication(events, arriving=status)
 
     rand_name = "validation_" + str(random.random()) + str(random.random()) + str(random.random()) + str(random.random())
-    file = open(rand_name,'w') 
-    file.write("worked arriving was " + str(arriving))
+    file = open('validation/'+rand_name,'w') 
+    file.write("worked arriving was " + str(status) + '\n' + str(datetime.datetime.now()))
     file.close()
 
-    return arriving
+    return status
     
-
 
 if __name__ == '__main__':
     app.run(debug=True)
