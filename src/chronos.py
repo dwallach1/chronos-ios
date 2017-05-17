@@ -29,9 +29,8 @@ import json
 
 
 app = Flask(__name__)
-
-
-
+PREFERENCES = None 
+HOME = False
 
 # -------------------
 #
@@ -292,7 +291,7 @@ def trigger_communication(events, arriving=False):
         print ("alexa successfully deleted alarm at", time)
 
 
-PREFERENCES = None 
+
 
 @app.route("/Run", methods=['GET'])
 def main():
@@ -306,9 +305,9 @@ def main():
     s = request.args.get("status")        
 
     if int(s) == 0:
-        status = False
+        HOME = False
     elif int(s) == 1:
-        status = True
+        HOME = True
     elif int(s) == 3:
         print ("iOS synchronization test Successful")
         # status = False
@@ -330,15 +329,18 @@ def main():
 
     # Step 3: generate voice message & communicate with Alexa 
     # trigger_communication(events)
-    trigger_communication(events, arriving=status)
+    trigger_communication(events, arriving=HOME)
 
     rand_name = "validation_" + str(random.random()) + str(random.random()) + str(random.random()) + str(random.random())
     file = open('validation/'+rand_name,'w') 
-    file.write("worked arriving was " + str(status) + '\n' + str(datetime.datetime.now()))
+    file.write("worked arriving was " + str(HOME) + '\n' + str(datetime.datetime.now()))
     file.close()
 
-    return status
+    return HOME
     
+#
+# Maybe use firebase to store whether user is home or not so that we can use the light switch interaction?
+#
 
 if __name__ == '__main__':
     app.run(debug=True)

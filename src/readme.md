@@ -22,9 +22,25 @@ firstly the wake file, which triggers the Echo to begin litsening. It then plays
 which tells Alexa what to do.
 
 
+
+
+# Dependencies
+
+* Google's speech-to-text: pip install gtts
+* Flask pyton framework: pip install flask
+* Google Calendar API Crednetials 
+* Google's API client package: pip install --upgrade google-api-python-client
+* ngrok: https://ngrok.com
+* Xcode: 
+
 # Limitations
 
 Because Amazon does not support 3rd party applications accessing Echo's alarms, this project had to be implemeneted in a very hackish manner. I hope that soon Amazon allows its users more access to the core of the Echo's to make them more programmable. This project would be able to be run easily on a Raspberry Pi running Pylexa or something of that sort, however, I wanted to develop a project that utilzed the traditional Echo. 
 
 
 # To Do
+
+A big enhancement can be performed by integrating a system that can determine when the user is going to sleep rather
+than just arriving home. 
+
+
