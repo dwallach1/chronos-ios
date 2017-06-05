@@ -98,31 +98,34 @@ class AddGeotificationViewController: UITableViewController {
                     "max_wakeup_time": userPreferences.sharedInstance.max_wakeup_time
                     ] as [String: Any]
     
+        // ONCE CHRONOS BACKEND HAS PROCESSING ABILITIES
+        // UNCOMMENT NETWORK COMMUNICATION BELOW
     
-        let port = userPreferences.sharedInstance.current_port
-        var request = URLRequest(url: URL(string: port + "/Prefs/")!)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.httpBody =  try! JSONSerialization.data(withJSONObject: dict, options: [])
-            
-        URLSession.shared.dataTask(with:request, completionHandler: {(data, response, error) in
-                if error != nil {
-                    print(error)
-                } else {
-                    do {
-                        guard let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any] else { return }
-                        
-                        guard let errors = json?["errors"] as? [[String: Any]] else { return }
-                        if errors.count > 0 {
-                            // show error
-                            return
-                        } else {
-                            // show confirmation
-                        }
-                    }
-                }
-            }).resume()
+    
+//        let port = userPreferences.sharedInstance.current_port
+//        var request = URLRequest(url: URL(string: port + "/Prefs/")!)
+//        request.httpMethod = "POST"
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//        request.addValue("application/json", forHTTPHeaderField: "Accept")
+//        request.httpBody =  try! JSONSerialization.data(withJSONObject: dict, options: [])
+//            
+//        URLSession.shared.dataTask(with:request, completionHandler: {(data, response, error) in
+//                if error != nil {
+//                    print(error)
+//                } else {
+//                    do {
+//                        guard let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any] else { return }
+//                        
+//                        guard let errors = json?["errors"] as? [[String: Any]] else { return }
+//                        if errors.count > 0 {
+//                            // show error
+//                            return
+//                        } else {
+//                            // show confirmation
+//                        }
+//                    }
+//                }
+//            }).resume()
     
          dismiss(animated: true, completion: nil)
     }
