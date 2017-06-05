@@ -98,18 +98,15 @@ class AddGeotificationViewController: UITableViewController {
                     "max_wakeup_time": userPreferences.sharedInstance.max_wakeup_time
                     ] as [String: Any]
     
-//        if let jsonData = try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted) {
     
-            let port = userPreferences.sharedInstance.current_port
-//            let url = NSURL(string: port+"/Prefs")!
-//            let request = NSMutableURLRequest(url: url as URL)
-            var request = URLRequest(url: URL(string: port + "/Prefs/")!)
-            request.httpMethod = "POST"
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            request.httpBody =  try! JSONSerialization.data(withJSONObject: dict, options: [])
+        let port = userPreferences.sharedInstance.current_port
+        var request = URLRequest(url: URL(string: port + "/Prefs/")!)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.httpBody =  try! JSONSerialization.data(withJSONObject: dict, options: [])
             
-            URLSession.shared.dataTask(with:request, completionHandler: {(data, response, error) in
+        URLSession.shared.dataTask(with:request, completionHandler: {(data, response, error) in
                 if error != nil {
                     print(error)
                 } else {
@@ -127,33 +124,9 @@ class AddGeotificationViewController: UITableViewController {
                 }
             }).resume()
     
-//            let task = URLSession.shared.dataTask(with: request as URLRequest){ data,response,error in
-//                if error != nil{
-//                    print(error?.localizedDescription)
-//                    return
-//                }
-//    
-//                do {
-//                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-//    
-//                    if let parseJSON = json {
-//                        let resultValue:String = parseJSON["success"] as! String;
-//                        print("result: \(resultValue)")
-//                        print(parseJSON)
-//                        }
-//                    } catch let error as NSError {
-//                        print(error)
-//                    }
-//                }
-//                task.resume()
-//            }
          dismiss(animated: true, completion: nil)
     }
 
-  private func onZoomToCurrentLocation(sender: AnyObject) {
-    mapView.zoomToUserLocation()
-  }
-    
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
         switch segue.identifier! {

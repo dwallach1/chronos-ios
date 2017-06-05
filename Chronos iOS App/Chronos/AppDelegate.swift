@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     else { x = 0 }
 
     var request = URLRequest(url: URL(string: port+"/Run?status=\(x)")!)
-    request.httpMethod = "GET"
+    request.httpMethod = "POST"
     let session = URLSession.shared
     
     session.dataTask(with: request) {data, response, err in

@@ -50,11 +50,38 @@ class GeotificationsViewController: UIViewController {
     }
   }
   
+    @IBAction func TestHome(_ sender: Any) {
+        let port = userPreferences.sharedInstance.current_port
+        let x = 1
+        var request = URLRequest(url: URL(string: port+"/Run?status=\(x)")!)
+        request.httpMethod = "POST"
+        let session = URLSession.shared
+        
+        session.dataTask(with: request) {data, response, err in
+            print("Entered the completionHandler")
+            }.resume()
+
+    }
+    
+    
+    @IBAction func TestAway(_ sender: Any) {
+        let port = userPreferences.sharedInstance.current_port
+        let x = 0
+        var request = URLRequest(url: URL(string: port+"/Run?status=\(x)")!)
+        request.httpMethod = "POST"
+        let session = URLSession.shared
+        
+        session.dataTask(with: request) {data, response, err in
+            print("Entered the completionHandler")
+            }.resume()
+
+    }
+    
     @IBAction func TestConnection(_ sender: Any) {
         let port = userPreferences.sharedInstance.current_port
         let x = 3
         var request = URLRequest(url: URL(string: port+"/Run?status=\(x)")!)
-        request.httpMethod = "GET"
+        request.httpMethod = "POST"
         let session = URLSession.shared
         
         session.dataTask(with: request) {data, response, err in

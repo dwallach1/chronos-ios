@@ -187,20 +187,46 @@
                                     <action selector="TestConnection:" destination="LYI-dq-R4y" eventType="touchUpInside" id="ULh-WB-Z60"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="udc-ka-Wmo">
+                                <rect key="frame" x="20" y="264" width="100" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="9O1-xV-SO1"/>
+                                    <constraint firstAttribute="height" constant="30" id="Gnh-bG-rCQ"/>
+                                </constraints>
+                                <state key="normal" title="Test Home"/>
+                                <connections>
+                                    <action selector="TestHome:" destination="LYI-dq-R4y" eventType="touchUpInside" id="ZQS-YB-7tc"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BJe-QC-car">
+                                <rect key="frame" x="20" y="324" width="100" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="hIT-gT-agM"/>
+                                    <constraint firstAttribute="height" constant="30" id="hq0-I4-cYX"/>
+                                </constraints>
+                                <state key="normal" title="Test Away"/>
+                                <connections>
+                                    <action selector="TestAway:" destination="LYI-dq-R4y" eventType="touchUpInside" id="7On-gc-3Mn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="58o-Wz-fWB" firstAttribute="leading" secondItem="XJf-xT-2wy" secondAttribute="trailing" constant="60" id="0QN-tq-JO1"/>
+                            <constraint firstItem="BJe-QC-car" firstAttribute="top" secondItem="udc-ka-Wmo" secondAttribute="bottom" constant="30" id="2DM-Dr-4mu"/>
                             <constraint firstItem="bUB-mf-qTT" firstAttribute="leading" secondItem="LNf-d1-Oxu" secondAttribute="trailing" constant="15" id="3z6-WW-AdY"/>
                             <constraint firstItem="XJf-xT-2wy" firstAttribute="leading" secondItem="E5h-DD-1qL" secondAttribute="trailing" constant="57" id="9AL-XO-N9I"/>
                             <constraint firstItem="6Z2-CJ-noi" firstAttribute="leading" secondItem="YSL-HX-BG1" secondAttribute="leading" constant="20" id="9Qj-te-Vx1"/>
                             <constraint firstItem="hBM-ll-xSu" firstAttribute="top" secondItem="fP9-ox-VWa" secondAttribute="bottom" id="EVa-x5-hqb"/>
+                            <constraint firstItem="BJe-QC-car" firstAttribute="leading" secondItem="YSL-HX-BG1" secondAttribute="leading" constant="20" id="PvW-Rz-doD"/>
                             <constraint firstItem="fP9-ox-VWa" firstAttribute="leading" secondItem="YSL-HX-BG1" secondAttribute="leading" id="QqS-4b-UaV"/>
                             <constraint firstItem="hBM-ll-xSu" firstAttribute="top" secondItem="XJf-xT-2wy" secondAttribute="bottom" constant="30" id="Wtx-yK-zMo"/>
                             <constraint firstItem="hBM-ll-xSu" firstAttribute="top" secondItem="E5h-DD-1qL" secondAttribute="bottom" constant="30" id="XB4-xs-Ibb"/>
                             <constraint firstItem="bUB-mf-qTT" firstAttribute="top" secondItem="kGy-dK-Sza" secondAttribute="bottom" constant="25" id="ZFr-Ed-SaT"/>
+                            <constraint firstItem="udc-ka-Wmo" firstAttribute="top" secondItem="6Z2-CJ-noi" secondAttribute="bottom" constant="50" id="b8P-Pu-it6"/>
                             <constraint firstItem="LNf-d1-Oxu" firstAttribute="leading" secondItem="YSL-HX-BG1" secondAttribute="leading" constant="20" id="fgV-8d-tc9"/>
                             <constraint firstItem="LNf-d1-Oxu" firstAttribute="top" secondItem="kGy-dK-Sza" secondAttribute="bottom" constant="20" id="j04-aL-1zq"/>
+                            <constraint firstItem="udc-ka-Wmo" firstAttribute="leading" secondItem="YSL-HX-BG1" secondAttribute="leading" constant="20" id="jke-pq-FYP"/>
                             <constraint firstItem="hBM-ll-xSu" firstAttribute="top" secondItem="58o-Wz-fWB" secondAttribute="bottom" constant="30" id="pm7-yv-cSb"/>
                             <constraint firstItem="6Z2-CJ-noi" firstAttribute="top" secondItem="LNf-d1-Oxu" secondAttribute="bottom" constant="50" id="qoK-t8-0rI"/>
                             <constraint firstItem="fP9-ox-VWa" firstAttribute="top" secondItem="kGy-dK-Sza" secondAttribute="bottom" id="uMi-e7-lUK"/>
@@ -219,7 +245,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="81v-DC-JL1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-74" y="504"/>
+            <point key="canvasLocation" x="-74.400000000000006" y="503.29835082458777"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uen-tk-3ua">
@@ -290,7 +316,7 @@
                                                     </connections>
                                                 </mapView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="phk-vs-Cp2" userLabel="done">
-                                                    <rect key="frame" x="202.5" y="229.5" width="50" height="50"/>
+                                                    <rect key="frame" x="162.5" y="229.5" width="50" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="kVF-NO-GtG"/>
                                                         <constraint firstAttribute="width" constant="50" id="mDg-jM-bzZ"/>
@@ -300,23 +326,12 @@
                                                         <action selector="onAddWithSender:" destination="WOc-Kh-RdY" eventType="touchUpInside" id="x9B-cl-3A7"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y3T-kS-gQY" userLabel="nav">
-                                                    <rect key="frame" x="132.5" y="229.5" width="50" height="50"/>
-                                                    <state key="normal" image="navigate-icon"/>
-                                                    <connections>
-                                                        <action selector="onZoomToCurrentLocationWithSender:" destination="WOc-Kh-RdY" eventType="touchUpInside" id="Bhn-Sf-mre"/>
-                                                    </connections>
-                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Y3T-kS-gQY" firstAttribute="width" secondItem="phk-vs-Cp2" secondAttribute="width" id="2dM-hr-7O5"/>
                                                 <constraint firstItem="frU-qC-iGG" firstAttribute="centerX" secondItem="WUy-YH-DKS" secondAttribute="centerX" constant="11" id="Nbw-Mp-kGs"/>
                                                 <constraint firstItem="frU-qC-iGG" firstAttribute="centerY" secondItem="WUy-YH-DKS" secondAttribute="centerY" constant="25.5" id="QFB-Fm-Pu9"/>
-                                                <constraint firstItem="phk-vs-Cp2" firstAttribute="centerX" secondItem="G8a-9u-bod" secondAttribute="centerX" constant="40" id="Tfq-SO-JmG"/>
-                                                <constraint firstItem="Y3T-kS-gQY" firstAttribute="height" secondItem="phk-vs-Cp2" secondAttribute="height" id="dy8-GM-IMs"/>
+                                                <constraint firstItem="phk-vs-Cp2" firstAttribute="centerX" secondItem="G8a-9u-bod" secondAttribute="centerX" id="Tfq-SO-JmG"/>
                                                 <constraint firstAttribute="trailing" secondItem="frU-qC-iGG" secondAttribute="trailing" constant="-22" id="jdp-SF-r7q"/>
-                                                <constraint firstItem="phk-vs-Cp2" firstAttribute="leading" secondItem="Y3T-kS-gQY" secondAttribute="trailing" constant="20" id="ohI-ek-e0B"/>
-                                                <constraint firstAttribute="bottom" secondItem="Y3T-kS-gQY" secondAttribute="bottom" constant="20" id="rWn-2N-tFw"/>
                                                 <constraint firstAttribute="bottom" secondItem="frU-qC-iGG" secondAttribute="bottom" id="tha-AC-t0d"/>
                                                 <constraint firstAttribute="topMargin" secondItem="frU-qC-iGG" secondAttribute="top" constant="8" id="wCa-vM-WD1"/>
                                                 <constraint firstAttribute="bottom" secondItem="phk-vs-Cp2" secondAttribute="bottom" constant="20" id="wp9-br-78h"/>
@@ -345,7 +360,7 @@
                                         <rect key="frame" x="0.0" y="344" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bfi-35-XeH" id="PbH-mR-of8">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preferred Number Of Sleep Hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="28I-K1-x05">
