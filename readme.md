@@ -5,6 +5,8 @@ user enters and exits their home.
 
 # How It Works
 
+Watch a tutorial video [here](https://vimeo.com/220377016)
+
 * The user downloads the iOS application that tracks their location and notifies the system when the user 
 enters or exits thier home. The user is able to input their home address and update their sleeping preferences 
 in order to let the system better determine their wake up time.
